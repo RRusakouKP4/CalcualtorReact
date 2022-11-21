@@ -1,0 +1,6 @@
+email: 'empty10@gmail.com',
+  password: '$2a$10$KcQtxlt/uP1vQczka6oCceY.qwcWIQHId78Q.MVVsHihmooCifeP6',
+  _id: new ObjectId("637513e925992e827079ca13"),
+  __v: 0
+
+  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzUxM2U5MjU5OTJlODI3MDc5Y2ExMyIsImVtYWlsIjoiZW1wdHkxMEBnbWFpbC5jb20iLCJpYXQiOjE2Njg2MTc1NjZ9.qxM0l2BdkwQV7a6-4pvxL7vdw09B1J5vXHsIs0w7L6A

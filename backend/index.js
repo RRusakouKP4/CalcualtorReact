@@ -14,8 +14,8 @@ dotenv.config()
 const PORT = process.env.PORT || 3002;
 
 const app = express();
+const secret = process.env.SECRET;
 
-<<<<<<< Updated upstream
 app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
 });

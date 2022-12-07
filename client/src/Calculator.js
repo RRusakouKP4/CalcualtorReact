@@ -39,7 +39,26 @@ function Calculator(){
     return digits;
   }
   
+  function addToHistory(calculation){
+    console.log(calculation)
+    fetch('http://localhost:3001/addToHistory',{
+      method : 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      withCredentials : 'true',
+      credentials : 'include',
+      body:JSON.stringify({
+        calc: calculation,
+      }),
+    })
+    .then(response => response.json())
+    .then(data => console.log(data));
+  }
+
   const calculate = () => {
+    addToHistory(calc.toString())
     setCalc(eval(calc).toString());
   }
 

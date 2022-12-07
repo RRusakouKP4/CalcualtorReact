@@ -7,8 +7,8 @@ const secret = process.env.SECRET;
 
 function fetchUserByToken(req,res){
     return new Promise((resolve,reject) => {
-      if(req.headers && req.headers.authorization){
-        let authorization = req.headers.authorization.toString()
+      if(req.cookies && req.cookies.authorization){
+        let authorization = req.cookies.authorization.toString()
         let decoded
         try{
           decoded = JsonWebToken.verify(authorization, secret)

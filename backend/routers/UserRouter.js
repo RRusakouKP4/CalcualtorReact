@@ -18,6 +18,29 @@ router.use("/test",cors(),(req,res) => {
     return;
   }
 })
+router.get("/history",(req,res) => {
+  fetchUserByToken(req)
+      .then(async (user) => {
+        let authorization = req.cookies.authorization.toString();
+        let decoded = JsonWebToken.verify(authorization, secret)
+        let data = await Database.History.find({ email: decoded.email.toString() });
+        res.json({history: data})
+      })
+      .catch((err) => {
+        console.log("token not valid")
+        res.json({success:false, error:err.toString()})
+      })
+})
+
+router.post("/addToHistory",cors(),async (req,res) =>{
+  let authorization = req.cookies.authorization.toString();
+  let decoded = JsonWebToken.verify(authorization, secret);
+  await Database.History.create({
+    user: decoded.email,
+    date: Date.now(),
+    calculation:req.body.calc,
+  })
+})
 router.post("/user/signup",cors(), (req,res) => {
     console.log(req.body.email)
     if(!req.body.email || !req.body.password) {
@@ -38,6 +61,7 @@ router.post("/user/signup",cors(), (req,res) => {
   })
   
 router.get("/example", (req,res) => {
+  console.log(req.cookies)
     fetchUserByToken(req)
       .then((user) => {
         console.log("token valid")
@@ -56,7 +80,7 @@ router.post("/user/login", (req, res) => {
     }
     Database.User.findOne({
       email: req.body.email,
-    }).then((user) => {
+    }).then(async (user) => {
       if (!user){
         res.json({success:false,error : "User does not exist"})
       } else {
@@ -65,6 +89,7 @@ router.post("/user/login", (req, res) => {
         } else {
           const token = JsonWebToken.sign({id : user._id, email : user.email}, secret)
           console.log(`token : ${token}`)
+
           res.json({success: true, token: token, })
         }
       }

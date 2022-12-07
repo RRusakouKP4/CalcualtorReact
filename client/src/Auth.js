@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useCookies } from "react-cookie";
 
 function register(email,password){
   fetch('http://localhost:3001/user/signup',{
@@ -26,25 +27,31 @@ function register(email,password){
   .then(data => console.log(data));
 }
 
-function login(email,password){
+export default function Login() {
+  const [cookies, setCookie] = useCookies(['authorization']);
+  function login(email,password){
     fetch('http://localhost:3001/user/login',{
       method : 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'withCredentials' : true,
-        credentials : 'include',
-      }, 
+      },
+      credentials: 'include', 
       body: JSON.stringify({
         "email": email,
         "password" : password
       })
     })
     .then(response => response.json())
-    .then(data => console.log(data));
+    .then(data => handleCookie(data.token)
+    );
 }
-
-export default function Login() {
+  function handleCookie(token) {
+    setCookie("authorization", token, {
+      path: "/"
+    });
+  }
   let handleSubmit = (event) => {
     event.preventDefault();
     let data = new FormData(event.currentTarget);
@@ -72,7 +79,7 @@ export default function Login() {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5"  sx={{color: "black"}}>
             Login
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -84,6 +91,7 @@ export default function Login() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              sx = {{color: 'black'}}
               autoFocus
               inputRef={emailRef}
             />
@@ -102,14 +110,14 @@ export default function Login() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2 , color: "black"}}
               onClick ={sendValues}
             >
               Login
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="/login" variant="body3" sx={{color: 'black'}}>
+                <Link href="/signup" variant="body3" sx={{color: 'black'}}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -148,7 +156,7 @@ export function SignUp() {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" sx={{ color: "black"}}>
             Sign Up
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>

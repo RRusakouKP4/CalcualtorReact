@@ -30,5 +30,23 @@ const UserSchema = new Mongoose.Schema({
     {collection: "users"
 })
 
+const HistorySchema = new Mongoose.Schema({
+    user:{
+        type: String,
+        lowercase: true,
+        trim: true
+    },
+    date:{
+        type: Date
+    },
+    calculation:{
+        type: String,
+        lowercase: true
+    }
+},
+{
+collection:"history"
+})
 let User = Mongoose.model("User", UserSchema)
-export {User};
+let History = Mongoose.model("History", HistorySchema)
+export {User,History};

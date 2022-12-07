@@ -1,3 +1,8 @@
 node_modules
 .env
 client/node_modules
+client/build/robots.txt
+client/build/logo512.png
+client/build/logo192.png
+client/build/favicon.ico
+client/build/manifest.json

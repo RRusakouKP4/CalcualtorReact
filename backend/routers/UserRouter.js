@@ -11,13 +11,7 @@ dotenv.config()
 const secret = process.env.SECRET;
 
 const router = Router();
-router.use("/test",cors(),(req,res) => {
-  if(req.method === "POST"){
-    console.log(req.body)
-    res.json({body : req.body})
-    return;
-  }
-})
+
 router.get("/history",(req,res) => {
   fetchUserByToken(req)
       .then(async (user) => {
@@ -60,18 +54,6 @@ router.post("/user/signup",cors(), (req,res) => {
     })
   })
   
-router.get("/example", (req,res) => {
-  console.log(req.cookies)
-    fetchUserByToken(req)
-      .then((user) => {
-        console.log("token valid")
-        res.json({success:true})
-      })
-      .catch((err) => {
-        console.log("token not valid")
-        res.json({success:false, error:err.toString()})
-      })
-})
   
 router.post("/user/login", (req, res) => {
     if(!req.body.email || !req.body.password) {

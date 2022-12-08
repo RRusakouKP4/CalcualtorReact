@@ -62,7 +62,7 @@ export default function Login() {
   };
   const emailRef = React.useRef('')
   const passwordRef = React.useRef('')
-  const sendValues = () => {
+  const sendValuesLogin = () => {
     login(emailRef.current.value, passwordRef.current.value)
   }
   return (
@@ -111,7 +111,7 @@ export default function Login() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 , color: "black"}}
-              onClick ={sendValues}
+              onClick ={sendValuesLogin}
             >
               Login
             </Button>
@@ -139,7 +139,7 @@ export function SignUp() {
   };
   const emailRef = React.useRef('')
   const passwordRef = React.useRef('')
-  const sendValues = () => {
+  const sendValuesRegister = () => {
     register(emailRef.current.value, passwordRef.current.value)
   }
   return (
@@ -187,7 +187,7 @@ export function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={sendValues}
+              onClick={sendValuesRegister}
             >
               Sign Up
             </Button>
